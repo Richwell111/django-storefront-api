@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.aggregates import Count, Min, Max, Avg, Sum
+from django.db.models import Q,Func,Value, F
 
-from store.models import Product
+from store.models import Collection, Customer, Order, Product
 
 
 def say_hello(request):
@@ -12,6 +14,11 @@ def say_hello(request):
     #     pass
     # except ObjectDoesNotExist:
     #     pass
-    queryset = Product.objects.filter(unit_price__gt=20)
-
-    return render(request, 'hello.html', {'name': 'Richman', 'products': queryset})
+    # collection = Collection()
+    # collection.title = 'Video Games'
+    # collection.featured_product = Product(pk=1)
+    # collection.save()
+    order=Order()
+    order.customer_id=1
+    order.save()
+    return render(request, 'hello.html', {'name': 'Richman', 'result': list(queryset)})
